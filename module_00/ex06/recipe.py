@@ -35,7 +35,15 @@ def del_recipe():
         print("This recipe doesn't exist\n")
 
 
-def print_recipe(recipe):
+def print_recipe():
+    recipe = input("Please enter the recipe's name to get its details:\n>> ")
+    if recipe in cookbook:
+        print_one_recipe(recipe)
+    else:
+        print("This recipe doesn't exist\n")
+
+
+def print_one_recipe(recipe):
     print("Recipe for {recipe}:".format(recipe=recipe))
     print("\tIngredients list: {ingredients}".format(ingredients=cookbook[recipe]['ingredients']))
     print("\tTo be eaten for {meal}.".format(meal=cookbook[recipe]['meal']))
@@ -56,11 +64,7 @@ def main():
         elif opt == 2:
             del_recipe()
         elif opt == 3:
-            recipe = input("Please enter the recipe's name to get its details:\n>> ")
-            if recipe in cookbook:
-                print_recipe(recipe)
-            else:
-                print("This recipe doesn't exist\n")
+            print_recipe()
         elif opt == 4:
             print_cookbook()
         elif opt == 5:
