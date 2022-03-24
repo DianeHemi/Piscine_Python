@@ -1,0 +1,30 @@
+### Output a list of installed packages ###
+pip list
+pip freeze -> Only packages installed with pip
+
+In the python console : help('modules')
+
+
+
+### Output a list of installed packages and their versions ###
+pip list
+
+
+
+### Show the package metadata of numpy ###
+In the python console : from numpy import metadata
+
+In the python console: 
+	import pkg_resources
+	d = pkg_resources.get_distribution('numpy')
+	d.version
+	d.location
+
+
+### Search for PyPI packages whose name or summary contains "tesseract" ###
+pip search tesseract
+	-> Depreciated
+
+pip index versions tesseract
+
+
