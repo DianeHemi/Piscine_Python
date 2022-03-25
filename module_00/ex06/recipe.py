@@ -21,9 +21,28 @@ def print_options():
     return option
 
 
-# TODO
 def add_recipe():
-    print(1)
+    recipe = input("Enter the recipe's name :\n>> ")
+    if recipe in cookbook:
+        print("This recipe already exist")
+        return
+    elif len(recipe) < 1:
+        print("Error : You have to enter a name\n")
+        return
+    ingredients = input("Enter the ingredients, separated by spaces:\n>> ").split(' ')
+    if len(ingredients) < 1:
+        print("Error : Ingredients list cannot be empty\n")
+        return
+    meal = input("What type of meal is it ?\n>> ")
+    if len(meal) < 1:
+        print("Error : Type of meal cannot be empty\n")
+        return
+    time = input("How long does it take to cook in minutes ?\n>> ")
+    if len(time) < 1 or time.isdigit() is False:
+        print("Error : Incorrect time value\n")
+        return
+    cookbook[recipe] = {'ingredients': ingredients, 'meal': meal, 'prep_time': time}
+    print("{recipe} was added to the cookbook !\n".format(recipe=recipe))
 
 
 def del_recipe():
@@ -51,9 +70,9 @@ def print_one_recipe(recipe):
     print()
 
 
-# TODO
 def print_cookbook():
-    print(4)
+    for element in cookbook:
+        print_one_recipe(element)
 
 
 def main():
