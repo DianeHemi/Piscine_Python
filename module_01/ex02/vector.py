@@ -1,3 +1,4 @@
+from decimal import InvalidOperation
 from numpy import isin
 
 
@@ -9,7 +10,6 @@ class Vector:
             self.shape = (1, len(self.values))
         else:
             self.shape = (len(self.values), len(self.values[0]))
-        print(self.values, " ", self.shape)
 
      
     def init_int(self, val):
@@ -19,7 +19,6 @@ class Vector:
             self.values.append([i + 0.0])
             i += 1
         self.shape = (len(self.values), 1)
-        print(self.values, " ", self.shape)
 
 
     def __init__(self, values):
@@ -34,57 +33,212 @@ class Vector:
                 self.values.append([i + 0.0])
                 i += 1
             self.shape = (len(self.values), 1)
-            print(self.values, " ", self.shape)
 
 
     # Only vectors of same dimensions
     def __add__(self, y):
-        sum = []
-        for i in range(len[self]):
-            sum.append([i] + y[i])
-        print(sum)
+        if self.shape != y.shape:
+            print("Error")
+            return
+        i = 0
+        if isinstance(self.values[0], float):
+            while i < len(self.values):
+                self.values[i] += y.values[i]
+                i += 1
+        else:
+            while i < len(self.values):
+                self.values[i][0] += y.values[i][0]
+                i += 1
+        return self.values
         
       
-    #def __radd__(): 
-        
+    def __radd__(self, y): 
+        if y.shape != self.shape:
+            print("Error")
+            return
+        i = 0
+        if isinstance(y.values[0], float):
+            while i < len(y.values):
+                y.values[i] += self.values[i]
+                i += 1
+        else:
+            while i < len(y.values):
+                y.values[i][0] += self.values[i][0]
+                i += 1
+        return y.values
         
     
     # Only vector of same dimensions 
-    #def __sub__():
-         
+    def __sub__(self, y):
+        if self.shape != y.shape:
+            print("Error")
+            return
+        i = 0
+        if isinstance(self.values[0], float):
+            while i < len(self.values):
+                self.values[i] -= y.values[i]
+                i += 1
+        else:
+            while i < len(self.values):
+                self.values[i][0] -= y.values[i][0]
+                i += 1
+        return self.values
         
-    #def __rsub__():
-        
+    def __rsub__(self, y):
+        if y.shape != self.shape:
+            print("Error")
+            return
+        i = 0
+        if isinstance(y.values[0], float):
+            while i < len(y.values):
+                y.values[i] -= self.values[i]
+                i += 1
+        else:
+            while i < len(y.values):
+                y.values[i][0] -= self.values[i][0]
+                i += 1
+        return y.values
         
        
     # Only scalars 
-    #def __truediv__():
+    def __truediv__(self, y):
+        if isinstance(y, int) or isinstance(y, float):
+            pass
+        else:
+            print("Error")
+            return
+        i = 0
+        if self.shape[0] == 1:
+            while i < len(self.values):
+                self.values[i] /= y
+                i += 1
+        else:
+            while i < len(self.values):
+                self.values[i][0] /= y
+                i += 1
+        return self.values
         
-        
-    #def __rtruediv__():
-        
+    def __rtruediv__(self, y):
+        if isinstance(y, int) or isinstance(y, float):
+            pass
+        else:
+            print("Error")
+            return
+        i = 0
+        if self.shape[0] == 1:
+            while i < len(self.values):
+                y /= self.values[i]
+                i += 1
+        else:
+            while i < len(self.values):
+                y /= self.values[i][0]
+                i += 1
+        return self.values
         
         
     # Only scalars   
-    #def __mul__():
+    def __mul__(self, y):
+        if isinstance(y, int) or isinstance(y, float):
+            pass
+        else:
+            raise TypeError()
+        i = 0
+        if self.shape[0] == 1:
+            while i < len(self.values):
+                self.values[i] *= y
+                i += 1
+        else:
+            while i < len(self.values):
+                self.values[i][0] *= y
+                i += 1
+        return self.values
+        
+    def __rmul__(self, y):
+        if isinstance(y, int) or isinstance(y, float):
+            pass
+        else:
+            raise TypeError()
+        i = 0
+        if self.shape[0] == 1:
+            while i < len(self.values):
+                y *= self.values[i]
+                i += 1
+        else:
+            while i < len(self.values):
+                y *= self.values[i][0]
+                i += 1
+        return self.values
         
         
-    #def __rmul__():
+    def __str__(self):
+        txt = "["
+        i = 0
+        if self.shape[0] == 1:
+            while i < len(self.values):
+                txt += str([self.values[i]])
+                if i + 1 < len(self.values):
+                    txt += ", "
+                i += 1
+        else:
+            while i < len(self.values):
+                txt += "["
+                txt += str(self.values[i][0])
+                txt += "]"
+                if i + 1 < len(self.values):
+                    txt += ", "
+                i += 1
+                    
+        txt += "]"
+        return txt
         
-        
-        
-    #def __str__():
-        
-        
-        
-    #def __repr__():
-        
+    def __repr__(self):
+        txt = "["
+        i = 0
+        if self.shape[0] == 1:
+            while i < len(self.values):
+                txt += str([self.values[i]])
+                if i + 1 < len(self.values):
+                    txt += ", "
+                i += 1
+        else:
+            while i < len(self.values):
+                txt += "["
+                txt += str(self.values[i][0])
+                txt += "]"
+                if i + 1 < len(self.values):
+                    txt += ", "
+                i += 1
+                    
+        txt += "]"
+        return txt
     
     
     # Dot product between two vectors of same shape
-    #def dot():
-        
+    def dot(self, y):
+        if isinstance(y, Vector) is False or self.shape != y.shape:
+            raise TypeError()
+        i = 0
+        if self.shape[0] == 1:
+            while i < len(self.values):
+                self.values[i] *= y.values[i]
+                i += 1
+        else:
+            while i < len(self.values):
+                self.values[i][0] *= y.values[i][0]
+                i += 1
+        return self.values
     
     
     # Returns the transpose vector (row -> column / column -> row)
-    #def T():
+    def T(self):
+        i = 0
+        new_vector = []
+        if self.shape[0] == 1:
+            while i < len(self.values):
+                new_vector.append([self.values[i]])
+                i += 1
+        else:
+            while i < len(self.values):
+                new_vector.append(self.values[i][0])
+                i += 1
+        return new_vector

@@ -5,4 +5,6 @@ from vector import Vector
 #v3 = Vector([[0.0], [1.0], [2.0], [3.0]])
 #v4 = Vector((10, 15))
 
-print(Vector([0.0, 1.0, 2.0, 3.0]) + Vector([0.0, 1.0, 2.0, 3.0]))
+#print(Vector([0.0, 1.0, 2.0, 3.0]) + Vector([0.0, 1.0, 2.0, 3.0]))
+#print(Vector([[0.0], [1.0], [2.0], [3.0]]) + Vector([[0.0], [1.0], [2.0], [3.0]]))
+print(str(Vector([[0.0], [1.0], [2.0], [3.0]])))
