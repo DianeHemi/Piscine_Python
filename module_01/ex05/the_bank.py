@@ -75,4 +75,5 @@ class Bank:
         if len(acc_data) % 2 != 1:
             return False
         
+        print(dir(account))
         return True
