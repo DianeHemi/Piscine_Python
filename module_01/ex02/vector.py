@@ -1,7 +1,3 @@
-from decimal import InvalidOperation
-from numpy import isin
-
-
 class Vector:
     
     def init_list(self, val):
@@ -10,7 +6,6 @@ class Vector:
             self.shape = (1, len(self.values))
         else:
             self.shape = (len(self.values), len(self.values[0]))
-
      
     def init_int(self, val):
         self.values = []
@@ -19,7 +14,6 @@ class Vector:
             self.values.append([i + 0.0])
             i += 1
         self.shape = (len(self.values), 1)
-
 
     def __init__(self, values):
         if isinstance(values, list):
@@ -33,7 +27,6 @@ class Vector:
                 self.values.append([i + 0.0])
                 i += 1
             self.shape = (len(self.values), 1)
-
 
     # Only vectors of same dimensions
     def __add__(self, y):
@@ -50,8 +43,7 @@ class Vector:
                 self.values[i][0] += y.values[i][0]
                 i += 1
         return self.values
-        
-      
+
     def __radd__(self, y): 
         if y.shape != self.shape:
             print("Error")
@@ -66,8 +58,7 @@ class Vector:
                 y.values[i][0] += self.values[i][0]
                 i += 1
         return y.values
-        
-    
+
     # Only vector of same dimensions 
     def __sub__(self, y):
         if self.shape != y.shape:
@@ -98,8 +89,7 @@ class Vector:
                 y.values[i][0] -= self.values[i][0]
                 i += 1
         return y.values
-        
-       
+
     # Only scalars 
     def __truediv__(self, y):
         if isinstance(y, int) or isinstance(y, float):
@@ -134,8 +124,7 @@ class Vector:
                 y /= self.values[i][0]
                 i += 1
         return self.values
-        
-        
+
     # Only scalars   
     def __mul__(self, y):
         if isinstance(y, int) or isinstance(y, float):
@@ -168,7 +157,6 @@ class Vector:
                 y *= self.values[i][0]
                 i += 1
         return self.values
-        
         
     def __str__(self):
         txt = "["
@@ -212,7 +200,6 @@ class Vector:
         txt += "]"
         return txt
     
-    
     # Dot product between two vectors of same shape
     def dot(self, y):
         if isinstance(y, Vector) is False or self.shape != y.shape:
@@ -227,8 +214,7 @@ class Vector:
                 self.values[i][0] *= y.values[i][0]
                 i += 1
         return self.values
-    
-    
+
     # Returns the transpose vector (row -> column / column -> row)
     def T(self):
         i = 0

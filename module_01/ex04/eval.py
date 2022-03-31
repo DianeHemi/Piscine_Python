@@ -7,8 +7,7 @@ class Evaluator:
         for w, c in zip(words, coefs):
             result += len(w) * c
         return result
-        
-        
+
     @staticmethod
     def enumerate_evaluate(coefs, words):
         if len(coefs) != len(words):

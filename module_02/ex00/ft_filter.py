@@ -7,11 +7,13 @@ def ft_filter(function_to_apply, iterable):
     An iterable.
     None if the iterable can not be used by the function.
     """
-    
+    if not callable(function_to_apply):
+        raise TypeError("Expected a function")
+
     res = []
-    
-    for element in iterable:
-        if function_to_apply(element) is True:
-            res.append(element)
-            
-    yield res
+    try:
+        for element in iterable:
+            if function_to_apply(element) is True:
+                yield element
+    except Exception as e:
+        raise AssertionError(str(e)) from None

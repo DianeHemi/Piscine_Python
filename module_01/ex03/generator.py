@@ -4,13 +4,14 @@ import random
 
 options = {"shuffle", "unique", "ordered"}
 
+
 def generator(text, sep=" ", option=None):
     """Option is an optional arg, sep is mandatory"""
 
     if type(text) != str:
         print("ERROR")
         quit(1)
-    elif option != None and option in options is False:
+    elif option is not None and option in options is False:
         print("ERROR")
         quit(1)
     
@@ -26,5 +27,5 @@ def generator(text, sep=" ", option=None):
     elif option == "unique":
         new_text = list(set(new_text))
         
-    for element in new_text :
+    for element in new_text:
         print(element)

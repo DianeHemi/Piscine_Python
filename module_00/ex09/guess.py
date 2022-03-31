@@ -2,8 +2,6 @@ import random
 
 
 random_nb = random.randint(1, 99)
-
-
 	
 	
 def treat_value(value, nb_try):

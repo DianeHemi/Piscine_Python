@@ -10,7 +10,6 @@ class Book:
 		self.creation_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 		self.recipes_list = {"starter":[], "lunch":[], "dessert": []}
 
-
 	def get_recipe_by_name(self, name):
 		"""Prints a recipe with the name \texttt{name} and returns the instance"""
 		found = False
@@ -22,13 +21,11 @@ class Book:
 		if found is False:
 			print("Recipe {name} not found".format(name=name))	
 
-
 	def get_recipe_by_types(self, recipe_type):
 		"""Get all recipe names for a given recipe type"""
 		assert recipe_type in self.recipes_list, "Invalid recipe type"
 		for element in self.recipes_list[recipe_type]:
 			print(element.name)
-
 
 	def add_recipe(self, recipe):
 		"""Add a recipe to the book and update last_update"""

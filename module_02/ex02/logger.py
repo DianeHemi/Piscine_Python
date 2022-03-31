@@ -5,23 +5,25 @@ import os
 
 def log(func):
     
-    def logger(*args, **kwargs):
+    def logger(self, *args, **kwargs):
         user = os.getlogin()
-        
         begin = time.time()
-        res = func(*args, **kwargs)
-        
-        #print("({user}) Running: {name:<15}[ exec-time = {time:.3f} ms ] ".format(user=user, name=func.__name__, time=end - begin))
-        file = open(r"machine.log", "a")
-        file.write("({user})Running: {name:<19}[ exec-time = {time:.3f} ]\n".format(user=user, name=func.__name__, time=time.time() - begin))
+        res = func(self, *args, **kwargs)
+        file = open(r"machine.log", "a+")
+        timer = time.time() - begin
+        if timer < 1:
+            file.write("({user})Running: {name:<19}[ exec-time = {time:.3f} ms ]\n"
+                       .format(user=user, name=func.__name__, time=timer * 1000))
+        else:
+            file.write("({user})Running: {name:<19}[ exec-time = {time:.3f} s ]\n"
+                       .format(user=user, name=func.__name__, time=timer))
         file.close()
         return res
     
     return logger
+
     
-    
-    
-class CoffeeMachine():
+class CoffeeMachine:
     water_level = 100
     
     @log
@@ -50,7 +52,6 @@ class CoffeeMachine():
         time.sleep(randint(1, 5))
         self.water_level += water_level
         print("Blub blub blub...")
-
 
 
 if __name__ == "__main__":

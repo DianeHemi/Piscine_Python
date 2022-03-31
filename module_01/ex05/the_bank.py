@@ -9,6 +9,8 @@ class Account(object):
         Account.ID_COUNT += 1
         
     def transfer(self, amount):
+        if not isinstance(amount, float) or isinstance(amount, int)
+            raise TypeError("Wrong amount type")
         self.value += amount
 
 
@@ -19,6 +21,8 @@ class Bank:
         self.account = []
         
     def add(self, account):
+        if not isinstance(account, Account):
+            raise TypeError("Expected an account")
         self.account.append(account)
         
     def transfer(self, origin, dest, amount):
@@ -67,13 +71,12 @@ class Bank:
             if element.startswith("__b") or element.startswith("b"):
                 del element
         
-        if len([x for x in acc_data if x.startswith('zip')]) == 0:
-            acc.zip = ""
-        if len([x for x in acc_data if x.startswith('addr')]) == 0:
-            acc.addr = ""
+        if not hasattr(acc, "zip"):
+            acc.zip = None
+        if not hasattr(acc, "addr"):
+            acc.addr = None
         
         if len(acc_data) % 2 != 1:
             return False
-        
-        print(dir(account))
+
         return True

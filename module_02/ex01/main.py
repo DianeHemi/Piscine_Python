@@ -12,8 +12,7 @@ def what_are_the_vars(*args, **kwargs):
             print("ERROR")
             break
     return obj
-    
-    
+
 
 class ObjectC(object):
     def __init__(self):
