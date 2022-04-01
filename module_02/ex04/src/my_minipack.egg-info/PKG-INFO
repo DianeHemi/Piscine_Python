@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: my-minipack
+Version: 1.0.0
+Summary: module_02 - ex04
+Home-page: https://github.com/DianeHemi/Piscine_Python/tree/main/module_02
+Author: dchampda
+Author-email: dchampda@student.42.fr
+License: GPLv3
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Students
+Classifier: Topic :: Education
+Classifier: Topic :: HowTo
+Classifier: Topic :: Package
+Classifier: License :: OSI Approved :: NU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.7
+
+Hey you
+

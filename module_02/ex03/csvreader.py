@@ -35,9 +35,6 @@ class CsvReader():
                     self.data.append(row)
             size += 1
             
-        for element in self.data:
-            print(element)
-            
         return self
         
         
