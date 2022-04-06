@@ -6,7 +6,8 @@ import numpy as np
 #https://www.analyticsvidhya.com/blog/2021/04/k-means-clustering-simplified-in-python/
 #https://flothesof.github.io/k-means-numpy.html
 #https://ai.plainenglish.io/k-means-clustering-using-numpy-in-6-lines-acbb105121eb
-
+#https://codereview.stackexchange.com/questions/205097/k-means-using-numpy
+#https://www.askpython.com/python/examples/k-means-clustering-from-scratch
 
 class KmeansClustering:
     def __init__(self, max_iter=20, ncentroid=4):
