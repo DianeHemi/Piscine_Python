@@ -1,5 +1,7 @@
+from locale import normalize
+from pickletools import uint8
 import numpy as np
-import matplotlib.image as img
+from PIL import Image
 import matplotlib.pyplot as plt
 
 
@@ -9,7 +11,7 @@ class ImageProcessor:
         array with the RGB values
         Must display a message specifying the dimensions"""
         try:
-            file = img.imread(path)
+            file = Image.open(path)
         except Exception:
             print("Error")
             return None
@@ -23,7 +25,7 @@ class ImageProcessor:
         """Takes a numpy array asargument
         displays the corresponding RGB image"""
         try:
-            plt.imshow(array)
+            plt.imshow(array.astype('uint8'), vmin=0, vmax=255)
             plt.show()
         except AttributeError:
             print("Error")

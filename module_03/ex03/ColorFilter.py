@@ -39,8 +39,15 @@ class ColorFilter:
         if not isinstance(array, np.ndarray):
             return None
 
-        ret = np.zeros(array.shape)
-        ret[:, :, 2] = array[:, :, 2]
+        if array.shape[2] == 4:
+            ret = np.dstack((np.zeros(np.shape(array[..., 1])), 
+                            np.zeros(np.shape(array[..., 1])), 
+                            array[..., 2], 
+                            array[..., 3]))
+        else :
+            ret = np.dstack((np.zeros(np.shape(array[..., 1])), 
+                            np.zeros(np.shape(array[..., 1])), 
+                            array[..., 2]))
         return ret
         
         
@@ -85,7 +92,7 @@ class ColorFilter:
         g = self.to_green(array)
         b = self.to_blue(array)
         
-        ret = array - (g + b)
+        ret = (g + b) - array
         return ret
         
     def to_celluloid(self, array):
@@ -106,7 +113,7 @@ class ColorFilter:
         Authorized functions:.arange,.linspace
         """
         new = np.array(array)
-        shades = np.linspace(0, 255, num=4, endpoint=False)
+        shades = np.linspace(0, 255, num=4, endpoint=False, dtype='uint8')
         for value in shades:
             new[array >= value] = value
         
