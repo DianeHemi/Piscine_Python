@@ -40,14 +40,14 @@ class ColorFilter:
             return None
 
         if array.shape[2] == 4:
-            ret = np.dstack((np.zeros(np.shape(array[..., 1])), 
-                            np.zeros(np.shape(array[..., 1])), 
-                            array[..., 2], 
-                            array[..., 3]))
+            ret = np.dstack((np.zeros(np.shape(array[:, :, 1])), 
+                            np.zeros(np.shape(array[:, :, 1])), 
+                            array[:, :, 2], 
+                            array[:, :, 3]))
         else :
-            ret = np.dstack((np.zeros(np.shape(array[..., 1])), 
-                            np.zeros(np.shape(array[..., 1])), 
-                            array[..., 2]))
+            ret = np.dstack((np.zeros(np.shape(array[:, :, 1])), 
+                            np.zeros(np.shape(array[:, :, 1])), 
+                            array[:, :, 2]))
         return ret
         
         
@@ -148,9 +148,12 @@ class ColorFilter:
                 values = list(kwargs[element])
             if np.sum(values) != 1.0:
                 return None
-            new = np.dstack((array[..., 0] * values[0], array[..., 1] * values[1], array[..., 2] * values[2]))
-            return new
             
+            if array.shape[2] == 4:
+                new = np.dstack((array[:, :, 0] * values[0], array[:, :, 1] * values[1], array[:, :, 2] * values[2], array[:, :, 3]))
+            else:
+                new = np.dstack((array[:, :, 0] * values[0], array[:, :, 1] * values[1], array[:, :, 2] * values[2]))
+            return new
         else:
             return None
         

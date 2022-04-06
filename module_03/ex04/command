@@ -1,0 +1,1 @@
+python Kmeans.py filepath=../solar_system_census.csv ncentroid=4 max_iter=30
