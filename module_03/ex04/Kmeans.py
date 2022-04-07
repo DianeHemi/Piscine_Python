@@ -25,10 +25,9 @@ class KmeansClustering:
         np.random.shuffle(centroid)
         self.centroids = centroid[:self.ncentroid, 1:]
         
-    def closest_centroid(self, X):
-        """returns an array containing the index to the nearest centroid for each point"""
-        dist = np.sqrt(((X - self.centroids[:, np.newaxis])**2).sum(axis=2))
-        return np.argmin(dist, axis=0)
+    def move_centroids(self, X, closest):
+        """returns the new centroids assigned from the points closest to them"""
+        self.centroids = np.array([X[closest==k].mean(axis=0) for k in range(self.centroids.shape[0])])
         
        
     def fit(self, X):
@@ -42,21 +41,53 @@ class KmeansClustering:
         Raises:
         This function should not raise any Exception.
         """
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
-        ax.scatter(X[:, 1], X[:, 2], X[:, 3])
         
         self.init_centroids(X)
         
+        closest = []
+        for i in range(0, self.max_iter):
+            closest = self.predict(X[:, 1:]) # = closest centroid
+            self.move_centroids(X[:, 1:], closest)
+        
+        
+        array = np.append(X, np.transpose([closest]), axis = 1)
+        
+        
+        
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        
+        ax.set_xlabel('Height')
+        ax.set_ylabel('Weight')
+        ax.set_zlabel('Bone density')
+        
+        # cluster = []
+        # for i in range(self.ncentroid):
+        #     np.append()
+            
+        array = array[array[:, 4].argsort()]
+        zero = array[array[:, 4] == 0]
+        one = array[array[:, 4] == 1]
+        two = array[array[:, 4] == 2]
+        three = array[array[:, 4] == 3]
+        
+
+        mininrows = np.argmax(self.centroids, axis=0)
+        print(mininrows)
+        print(self.centroids)
+        
+        
+        ax.scatter(zero[:, 1], zero[:, 2], zero[:, 3], c='b')
+        ax.scatter(one[:, 1], one[:, 2], one[:, 3], c='purple')
+        ax.scatter(two[:, 1], two[:, 2], two[:, 3], c='g')
+        ax.scatter(three[:, 1], three[:, 2], three[:, 3], c='orange')
         ax.scatter(self.centroids[:, 0], self.centroids[:, 1], self.centroids[:, 2], c='r', s=100)
-        plt.show()
         
-        print(self.closest_centroid(X[:, 1:]))
+        ax.legend(['1', '2', '3', '4', 'Centroids'], ncol=5)
+        # plt.show()
+       
         
-        
-        
-        
-        
+             
     def predict(self, X):
         """
         Predict from wich cluster each datapoint belongs to.
@@ -67,6 +98,8 @@ class KmeansClustering:
         Raises:
         This function should not raise any Exception.
         """
+        dist = np.sqrt(((X - self.centroids[:, np.newaxis])**2).sum(axis=2))
+        return np.argmin(dist, axis=0)
 
 
 
