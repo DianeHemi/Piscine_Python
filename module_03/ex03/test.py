@@ -18,4 +18,4 @@ cf = ColorFilter()
 #imp.display(cf.to_celluloid(arr))
 #imp.display(cf.to_grayscale(arr, 'm'))
 
-imp.display(cf.to_grayscale(arr, 'weight', weigth=[0.2, 0.3, 0.5]))
+imp.display(cf.to_grayscale(arr, 'weight', weigth=[0.2, 0.5, 0.3]))

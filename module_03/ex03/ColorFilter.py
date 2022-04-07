@@ -141,6 +141,7 @@ class ColorFilter:
         """
         if filter is "mean" or filter is "m":
             new = np.sum(array[:, :, :3], axis=2) / 3
+            print(new)
             new = np.dstack((new, new, new))
             return new
         elif filter is "weight" or filter is "w":

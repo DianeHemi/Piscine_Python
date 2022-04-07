@@ -1,6 +1,5 @@
+from matplotlib import pyplot as plt
 import sys
-import csv
-import matplotlib as plt
 import numpy as np
 
 #https://www.analyticsvidhya.com/blog/2021/04/k-means-clustering-simplified-in-python/
@@ -21,6 +20,17 @@ class KmeansClustering:
         self.centroids = [] # values of the centroids
        
        
+    def init_centroids(self, X):
+        centroid = X.copy()
+        np.random.shuffle(centroid)
+        self.centroids = centroid[:self.ncentroid, 1:]
+        
+    def closest_centroid(self, X):
+        """returns an array containing the index to the nearest centroid for each point"""
+        dist = np.sqrt(((X - self.centroids[:, np.newaxis])**2).sum(axis=2))
+        return np.argmin(dist, axis=0)
+        
+       
     def fit(self, X):
         """
         Run the K-means clustering algorithm.
@@ -32,8 +42,18 @@ class KmeansClustering:
         Raises:
         This function should not raise any Exception.
         """
-        # Init les centroids a partir des donnes X -> np.random.shuffle(X) / np.random.randint(0, self.ncentroids)
-        # centroid = centroids[:self.ncentroid] ?
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.scatter(X[:, 1], X[:, 2], X[:, 3])
+        
+        self.init_centroids(X)
+        
+        ax.scatter(self.centroids[:, 0], self.centroids[:, 1], self.centroids[:, 2], c='r', s=100)
+        plt.show()
+        
+        print(self.closest_centroid(X[:, 1:]))
+        
+        
         
         
         
@@ -90,13 +110,12 @@ def main():
         
     # Parsing du fichier csv
     with open(args[0], 'r') as x:
-        file = list(csv.reader(x, delimiter=","))
+        file = np.genfromtxt(args[0], delimiter=",", skip_header=1)
     data = np.array(file)
-    data_noheader = data[1:]
     
     
     kmeans = KmeansClustering(args[1], args[2])
-    kmeans.fit(data_noheader)
+    kmeans.fit(data)
 
 
 if __name__ == '__main__':
