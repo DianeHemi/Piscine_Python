@@ -14,7 +14,6 @@ class KmeansClustering:
         display coordinates of the different centroids and the associated region
             for the case ncentroid=4
         display the number of individuals associated to ech centroid"""
-        #... parameters control...
         self.ncentroid = ncentroid # number of centroids
         self.max_iter = max_iter # number of max iterations to update the centroids
         self.centroids = [] # values of the centroids
@@ -27,7 +26,7 @@ class KmeansClustering:
         
     def move_centroids(self, X, closest):
         """returns the new centroids assigned from the points closest to them"""
-        self.centroids = np.array([X[closest==k].mean(axis=0) for k in range(self.centroids.shape[0])])
+        self.centroids = np.array([X[closest == k].mean(axis=0) for k in range(self.centroids.shape[0])])
         
        
     def fit(self, X):
@@ -70,11 +69,11 @@ class KmeansClustering:
         one = array[array[:, 4] == 1]
         two = array[array[:, 4] == 2]
         three = array[array[:, 4] == 3]
-        
 
-        mininrows = np.argmax(self.centroids, axis=0)
-        print(mininrows)
-        print(self.centroids)
+        # 0: Belt, 1: Venus, 2: Earth, 3: Mars
+        res = self.get_origin()
+
+
         
         
         ax.scatter(zero[:, 1], zero[:, 2], zero[:, 3], c='b')
@@ -86,7 +85,24 @@ class KmeansClustering:
         ax.legend(['1', '2', '3', '4', 'Centroids'], ncol=5)
         # plt.show()
        
-        
+
+    def get_origin(self):
+        res = [0, 0, 0, 0]
+        maxinrows = np.argmax(self.centroids, axis=0)
+        temp = self.centroids
+        res[0] = self.centroids[maxinrows[0]]
+        temp = np.delete(temp, maxinrows[0], axis=0)
+        mininrows = np.argmin(temp, axis=0)
+        res[1] = temp[mininrows[1]]
+        temp = np.delete(temp, mininrows[1], axis=0)
+        maxinrows = np.argmax(temp, axis=0)
+        res[2] = temp[maxinrows[1]]
+        temp = np.delete(temp, maxinrows[1], axis=0)
+        res[3] = temp[0]
+        res = np.array(res)
+        return res
+
+
              
     def predict(self, X):
         """
