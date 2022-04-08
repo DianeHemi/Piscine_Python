@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 def howManyMedals(df, name):
     """
     Returns a dictionary of dictionaries giving the number and type of medals
@@ -12,10 +15,23 @@ def howManyMedals(df, name):
     if len(data) == 0:
         return 0
     
-    # Retirer les competitions sans podium
-    data = data.dropna(axis=0, how='any', subset=['Medal'])
+    # Trier par annee et avoir nb et type de medaille pour chaque
+    years = data['Year'].unique()
+    medals = {'G':0, 'S':0, 'B':0}
+    ret = {}
+
+    for element in years:
+        med = data[data['Year'] == element]['Medal'].value_counts()
+        if 'Gold' in med:
+            medals['G'] = med['Gold']
+            g = med['Gold']
+        if 'Silver' in med:
+            medals['S'] = med['Silver']
+        if 'Bronze' in med:
+            medals['B'] = med['Bronze']
+        ret[element] = medals
+        medals = {'G':0, 'S':0, 'B':0}
+
+    return ret
     
     
-    # Trier par annee et avoir nb et typ de medaille pour chaque
-    medals = data['Year']
-    print(medals)

@@ -14,10 +14,11 @@ def proportionBySport(df, year, sport, gender):
     if len(data) == 0:
         return 0
     
-    #Somme de toutes les joueuses de 'sport' / nb de joueuses
-    nb = len(data[data['Sport'] == sport])
-    #print(nb / len(data))
-    return nb / len(data)
+    #Retirer doublons
+    data = data.drop_duplicates(subset=['Name'])
+    
+    nb = data[data['Sport'] == sport]
+    return (nb.shape[0] / data.shape[0])
 
 
     
