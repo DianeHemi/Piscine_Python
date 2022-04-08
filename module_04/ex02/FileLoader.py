@@ -1,4 +1,4 @@
-from YoungestFellah import youngestfellah
+from ProportionBySport import proportionBySport
 import pandas as pd
 
 
@@ -29,12 +29,8 @@ def main():
     loader = FileLoader()
     data = loader.load("../athlete_events.csv")
 
-    print(youngestfellah(data, 2004))
-    # {’f’: 13.0, ’m’: 14.0}
-    print()
-    
-    print(youngestfellah(data, 1991))
-    # {’f’: ’nan’, ’m’: ’nan’}
+    print(proportionBySport(data, 2004, 'Tennis', 'F'))
+    # 0.01935634328358209
     
     
     

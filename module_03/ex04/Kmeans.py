@@ -75,7 +75,6 @@ class KmeansClustering:
 
 
         
-        
         ax.scatter(zero[:, 1], zero[:, 2], zero[:, 3], c='b')
         ax.scatter(one[:, 1], one[:, 2], one[:, 3], c='purple')
         ax.scatter(two[:, 1], two[:, 2], two[:, 3], c='g')
@@ -86,8 +85,11 @@ class KmeansClustering:
         # plt.show()
        
 
+
     def get_origin(self):
         res = [0, 0, 0, 0]
+        #Ajouter index dans temp -> np.array(range(0, self,ncentroids)) et append
+        #index0 es centrois == index 0 de la liste de points
         maxinrows = np.argmax(self.centroids, axis=0)
         temp = self.centroids
         res[0] = self.centroids[maxinrows[0]]

@@ -1,4 +1,4 @@
-from YoungestFellah import youngestfellah
+from HowManyMedals import howManyMedals
 import pandas as pd
 
 
@@ -29,12 +29,12 @@ def main():
     loader = FileLoader()
     data = loader.load("../athlete_events.csv")
 
-    print(youngestfellah(data, 2004))
-    # {’f’: 13.0, ’m’: 14.0}
-    print()
-    
-    print(youngestfellah(data, 1991))
-    # {’f’: ’nan’, ’m’: ’nan’}
+    print(howManyMedals(data, 'Kjetil Andr Aamodt'))
+    # {1992: {’G’: 1, ’S’: 0, ’B’: 1},
+    # 1994: {’G’: 0, ’S’: 2, ’B’: 1},
+    # 1998: {’G’: 0, ’S’: 0, ’B’: 0},
+    # 2002: {’G’: 2, ’S’: 0, ’B’: 0},
+    # 2006: {’G’: 1, ’S’: 0, ’B’: 0}}
     
     
     
