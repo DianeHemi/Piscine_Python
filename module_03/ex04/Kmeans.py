@@ -2,11 +2,6 @@ from matplotlib import pyplot as plt
 import sys
 import numpy as np
 
-#https://www.analyticsvidhya.com/blog/2021/04/k-means-clustering-simplified-in-python/
-#https://flothesof.github.io/k-means-numpy.html
-#https://ai.plainenglish.io/k-means-clustering-using-numpy-in-6-lines-acbb105121eb
-#https://codereview.stackexchange.com/questions/205097/k-means-using-numpy
-#https://www.askpython.com/python/examples/k-means-clustering-from-scratch
 
 class KmeansClustering:
     def __init__(self, max_iter=20, ncentroid=4):
@@ -47,12 +42,9 @@ class KmeansClustering:
         for i in range(0, self.max_iter):
             closest = self.predict(X[:, 1:]) # = closest centroid
             self.move_centroids(X[:, 1:], closest)
-        
-        
+
         array = np.append(X, np.transpose([closest]), axis = 1)
-        
-        
-        
+
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         
@@ -70,42 +62,36 @@ class KmeansClustering:
         two = array[array[:, 4] == 2]
         three = array[array[:, 4] == 3]
 
-        # 0: Belt, 1: Venus, 2: Earth, 3: Mars
         res = self.get_origin()
 
-
-        
         ax.scatter(zero[:, 1], zero[:, 2], zero[:, 3], c='b')
         ax.scatter(one[:, 1], one[:, 2], one[:, 3], c='purple')
         ax.scatter(two[:, 1], two[:, 2], two[:, 3], c='g')
         ax.scatter(three[:, 1], three[:, 2], three[:, 3], c='orange')
         ax.scatter(self.centroids[:, 0], self.centroids[:, 1], self.centroids[:, 2], c='r', s=100)
         
-        ax.legend(['1', '2', '3', '4', 'Centroids'], ncol=5)
-        # plt.show()
+        ax.legend(res, ncol=5)
+        plt.show()
        
 
 
     def get_origin(self):
-        res = [0, 0, 0, 0]
-        #Ajouter index dans temp -> np.array(range(0, self,ncentroids)) et append
-        #index0 es centrois == index 0 de la liste de points
+        res = ['', '', '', '', 'Centroids']
         maxinrows = np.argmax(self.centroids, axis=0)
-        temp = self.centroids
-        res[0] = self.centroids[maxinrows[0]]
+
+        temp = np.append(self.centroids, np.array(range(0, self.ncentroid)).reshape((4, 1)), axis=1)
+
+        res[int(temp[maxinrows[0]][3])] = 'Belt'
         temp = np.delete(temp, maxinrows[0], axis=0)
         mininrows = np.argmin(temp, axis=0)
-        res[1] = temp[mininrows[1]]
+        res[int(temp[mininrows[1]][3])] = 'Venus'
         temp = np.delete(temp, mininrows[1], axis=0)
         maxinrows = np.argmax(temp, axis=0)
-        res[2] = temp[maxinrows[1]]
+        res[int(temp[maxinrows[1]][3])] = 'Earth'
         temp = np.delete(temp, maxinrows[1], axis=0)
-        res[3] = temp[0]
-        res = np.array(res)
+        res[int(temp[0][3])] = 'Mars'
         return res
 
-
-             
     def predict(self, X):
         """
         Predict from wich cluster each datapoint belongs to.
@@ -118,7 +104,6 @@ class KmeansClustering:
         """
         dist = np.sqrt(((X - self.centroids[:, np.newaxis])**2).sum(axis=2))
         return np.argmin(dist, axis=0)
-
 
 
 def parse_args(argv):
@@ -147,9 +132,7 @@ def parse_args(argv):
     if len(file) == 0:
         return None
     
-    return (file, max_iter, ncentroid)
-        
-            
+    return file, max_iter, ncentroid
 
 
 def main():
@@ -159,15 +142,14 @@ def main():
         print("Input Error")
         quit(1)
         
-    # Parsing du fichier csv
+    # Parsing du csv
     with open(args[0], 'r') as x:
         file = np.genfromtxt(args[0], delimiter=",", skip_header=1)
     data = np.array(file)
-    
-    
+
     kmeans = KmeansClustering(args[1], args[2])
     kmeans.fit(data)
 
 
 if __name__ == '__main__':
-	main()
+    main()
