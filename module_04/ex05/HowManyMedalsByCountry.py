@@ -9,30 +9,22 @@ def howManyMedalsByCountry(df, country):
     # Garder uniquement le pays choisi
     data = df[df['Team'] == country]
     
-    print(data.groupby(['Year']))
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    # years = data['Year'].unique()
-    # medals = {'G':0, 'S':0, 'B':0}
-    # ret = {}
+    years = data['Year'].unique()
+    medals = {'G':0, 'S':0, 'B':0}
+    ret = {}
 
-    # for element in years:
-    #     med = data[data['Year'] == element]['Medal'].value_counts()
-    #     if 'Gold' in med:
-    #         medals['G'] = med['Gold']
-    #         g = med['Gold']
-    #     if 'Silver' in med:
-    #         medals['S'] = med['Silver']
-    #     if 'Bronze' in med:
-    #         medals['B'] = med['Bronze']
-    #     ret[element] = medals
-    #     medals = {'G':0, 'S':0, 'B':0}
+    for element in years:
+        med = data[data['Year'] == element]['Medal'].value_counts()
+        if 'Gold' in med:
+            medals['G'] = med['Gold']
+            g = med['Gold']
+        if 'Silver' in med:
+            medals['S'] = med['Silver']
+        if 'Bronze' in med:
+            medals['B'] = med['Bronze']
+        ret[element] = medals
+        medals = {'G':0, 'S':0, 'B':0}
+
+    return ret
     
