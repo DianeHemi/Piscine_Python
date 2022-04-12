@@ -33,11 +33,11 @@ def main():
     
     # plot.histogram(data, ["Height", "Weight"])
     
-    # plot.density(data, ["Height", "Weight"])
+    plot.density(data, ["Height", "Weight"])
     
     # plot.pair_plot(data, ["Height", "Weight"])
     
-    plot.box_plot(data, ["Height", "Weight"])
+    # plot.box_plot(data, ["Height", "Weight"])
     
     
     

@@ -30,12 +30,12 @@ def main():
     data = loader.load("../athlete_events.csv")
 
     komp = Komparator(data)
-    
+
+    # komp.density("Sex", "Height")
+
     # komp.compare_box_plots("Sex", "Height")
-    
-    komp.density("Sex", "Height")
-    
-    # komp.compare_histograms()
+
+    komp.compare_histograms("Sex", "Height")
 
     
     

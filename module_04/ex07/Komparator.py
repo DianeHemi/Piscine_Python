@@ -1,11 +1,9 @@
 from MyPlotLib import MyPlotLib
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 class Komparator:
     def __init__(self, df):
-        """
-        df = Dataset
-        """
         self.df = df
         
     def compare_box_plots(self, categorical_var, numerical_var):
@@ -16,16 +14,13 @@ class Komparator:
         For example, with Sex and Height, we would compare the height distributions of 
         men vs. women with two boxes on the same graph
         """
-        # Faire un dictionnaire
-        dc = {}
-        
-        cat = self.df.groupby(categorical_var)[numerical_var].unique()
-        
-        # for index in range(len(self.df[categorical_var])):
-        #     dc[self.df[numerical_var][index]] = {self.df[categorical_var][index]}
-            
+        cat = self.df[categorical_var].unique()
 
-        MyPlotLib.box_plot(cat, list(cat.index))
+        dc = {}
+        for elem in cat:
+            dc[elem] = self.df[self.df[categorical_var] == elem][numerical_var]
+
+        MyPlotLib.box_plot(dc, cat)
         
         
         
@@ -35,15 +30,10 @@ class Komparator:
         represented by a separate curve on the graph
         """
         cat = self.df[categorical_var].unique()
-        clean = self.df[[categorical_var, numerical_var]].dropna()
-        ret = {}
-        
-        for it in cat:
-            tmp = clean[clean[categorical_var] == it]
-            ret[it] = tmp
-
-        MyPlotLib.density(ret, cat)
-        
+        for elem in cat:
+            sns.kdeplot(self.df[numerical_var][self.df[categorical_var] == elem].dropna(), label=elem)
+        plt.title('Density by {cat}'.format(cat=categorical_var))
+        plt.show()
         
         
     def compare_histograms(self, categorical_var, numerical_var):
@@ -51,3 +41,8 @@ class Komparator:
         Plots the numerical variable in a separate histogram for each category. 
         As an extra, you can use over lapping histograms with a color code
         """
+        cat = self.df[categorical_var].unique()
+        for elem in cat:
+            sns.distplot(self.df[numerical_var][self.df[categorical_var] == elem].dropna(), label=elem, kde=False)
+        plt.title('Density by {cat}'.format(cat=categorical_var))
+        plt.show()

@@ -7,14 +7,7 @@ class MyPlotLib:
         """
         plots one histogram for each numerical feature in the list
         """
-        fig = plt.figure()
-        
-        i = 1
-        for element in features:
-            ax = fig.add_subplot(1, len(features), i)
-            data[element].plot.hist(title=element, grid=True)
-            i += 1
-            
+        data[features].hist(grid=True)
         plt.show()
         
     @staticmethod
@@ -22,13 +15,9 @@ class MyPlotLib:
         """
         plots the density curve of each numerical feature in the list
         """
-        
-        for element in features:
-            data[element].plot.density()
-            
+        data[features].plot.kde(grid=True)
         plt.show()
-        
-      
+
     @staticmethod  
     def pair_plot(data, features):
         """
